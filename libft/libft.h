@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 10:35:07 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/08 19:46:34 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/16 12:10:54 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,6 +54,10 @@ int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 
+unsigned int		ft_atoui_base(char *str, char *base);
+char				*ft_uitoa_base(unsigned int nb, char *base);
+long				ft_atol_base(char *str, char *base);
+int					ft_nb_len(int nb);
 int					ft_power(int nb, int pwr);
 char				*ft_itoa_base(int nb, char *base_str);
 int					ft_atoi_base(char *str, char *base);
@@ -82,13 +86,13 @@ char				*ft_itoa(int n);
 int					ft_putchar(char c);
 int					ft_putwchar(wchar_t c);
 int					ft_putwchar_fd(wchar_t c, int fd);
-void				ft_putstr(char const *s);
-void				ft_putendl(char const *s);
-void				ft_putnbr(int n);
+int					ft_putstr(char *s);
+int					ft_putendl(char const *s);
+int					ft_putnbr(int n);
 int					ft_putchar_fd(char c, int fd);
-void				ft_putstr_fd(char const *s, int fd);
-void				ft_putendl_fd(char const *s, int fd);
-void				ft_putnbr_fd(int n, int fd);
+int					ft_putstr_fd(char *s, int fd);
+int					ft_putendl_fd(char const *s, int fd);
+int					ft_putnbr_fd(int n, int fd);
 
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));

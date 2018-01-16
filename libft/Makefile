@@ -6,13 +6,13 @@
 #    By: volivry <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/10 09:59:28 by volivry           #+#    #+#              #
-#    Updated: 2018/01/08 19:50:14 by volivry     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/01/10 19:45:11 by volivry     ###    #+. /#+    ###.fr      #
 #                                                                              #
 # **************************************************************************** #
 .PHONY: all clean fclean re
 
 CC = gcc $(FLAGS)
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror
 NAME = libft.a
 SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c\
 	  ft_memchr.c ft_memcmp.c ft_strlen.c ft_strdup.c ft_strcpy.c\
@@ -28,7 +28,8 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c\
 	  ft_isupper.c ft_islower.c ft_iswhite.c ft_strrev.c ft_wordcount.c\
 	  ft_lstadd.c ft_lstdel.c ft_lstdelone.c ft_lstiter.c ft_lstmap.c\
 	  ft_putwchar_fd.c ft_putwchar.c ft_itoa_base.c ft_power.c \
-	  ft_atoi_base.c
+	  ft_atoi_base.c ft_nb_len.c ft_uitoa_base.c ft_atoui_base.c \
+	  ft_atol_base.c
 
 OBJECTS = $(SRC:.c=.o)
 

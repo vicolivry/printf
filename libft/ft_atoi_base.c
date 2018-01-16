@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/08 14:10:40 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/08 19:43:08 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/10 10:52:53 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,8 @@ static int	ft_check_base(char *str)
 	int	j;
 
 	i= 0;
+	if (ft_strlen(str) < 2)
+		return (0);
 	while (str[i])
 	{
 		if (str[i] == '-' || str[i] == '+')

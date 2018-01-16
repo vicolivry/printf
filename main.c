@@ -6,34 +6,26 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 19:33:56 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/05 17:36:15 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/16 18:13:26 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <stdarg.h>
+#include <locale.h>
 
-int main(int argc, char **argv)
+int	main(void)
 {
-	t_format	fmt;
+	int	ret;
 
-	if (argc != 2)
-		return (0);
-
-	fmt = ft_parse(argv[1]);
-	ft_putstr("Flags : ");
-	ft_putendl(fmt.flags);
-	ft_putstr("Width : ");
-	ft_putnbr(fmt.width);
-	ft_putchar('\n');
-	ft_putstr("Precision : .");
-	ft_putnbr(fmt.precis);
-	ft_putchar('\n');
-	ft_putstr("Length : ");
-	ft_putchar(fmt.length);
-	ft_putchar('\n');
-	ft_putstr("Type :");
-	ft_putchar(fmt.type);
-	ft_putchar('\n');
-	return 0;
+	setlocale(LC_ALL, "");
+	ft_putendl("FT_PRINTF");
+	ret = ft_printf("Char c = [%5lc], [%3.2s]\n", 127940, "hello");
+	ft_printf("\nret: [%d]\n\n", ret);
+	ft_putendl("----*****----\n");
+	ft_putendl("REAL PRINTF");
+	ret = printf("Char c = [%5lc], [%3.2s]\n", 127940, "hello");
+	printf("\nret: [%d]\n", ret);
+	return (0);
 }

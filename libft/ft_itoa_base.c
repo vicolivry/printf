@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/05 17:57:32 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/08 19:21:25 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/11 14:57:55 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,16 +38,11 @@ static int	ft_check_base(char *str)
 	return (1);
 }
 
-static int	ft_nb_len(int nb, int base)
+static int	ft_nb_len_base(int nb, int base)
 {
 	int	cnt;
 
 	cnt = 1;
-	if (nb < 0)
-	{
-		nb *= -1;
-		cnt++;
-	}
 	while (nb >= base)
 	{
 		cnt++;
@@ -65,14 +60,9 @@ char		*ft_itoa_base(int nb, char *base_str)
 	if (!ft_check_base(base_str))
 		return (NULL);
 	b = ft_strlen(base_str);
-	len = ft_nb_len(nb, b);
+	len = ft_nb_len_base(nb, b);
 	if ((str = malloc(len + 1)) == NULL)
 		return (NULL);
-	if (nb < 0)
-	{
-		nb *= -1;
-		str[0] = '-';
-	}
 	str[len] = '\0';
 	len--;
 	while (nb > 0)

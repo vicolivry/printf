@@ -6,18 +6,22 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 11:52:56 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/03 11:53:00 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/15 14:42:05 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl_fd(char const *s, int fd)
+int	ft_putendl_fd(char const *s, int fd)
 {
+	int ret;
+
+	ret = 0;
 	if (s != NULL)
 	{
-		ft_putstr_fd(s, fd);
-		ft_putchar_fd('\n', fd);
+		ret += ft_putstr_fd(s, fd);
+		ret += ft_putwchar_fd('\n', fd);
 	}
+	return (ret);
 }

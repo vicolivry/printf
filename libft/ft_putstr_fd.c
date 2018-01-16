@@ -6,26 +6,25 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 12:10:35 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/08 18:39:33 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/16 12:11:06 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char const *s, int fd)
+int	ft_putstr_fd(char *s, int fd)
 {
-	size_t	i;
-	char	*str;
+	int		ret;
 
-	i = 0;
-	str = (char*)s;
+	ret = 0;
 	if (s != NULL)
 	{
-		while (str[i])
+		while (*s)
 		{
-			ft_putchar_fd(str[i], fd);
-			i++;
+			ret += ft_putwchar_fd(*s, fd);
+			s++;
 		}
 	}
+	return (ret);
 }

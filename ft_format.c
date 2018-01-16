@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/05 15:32:41 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/05 18:20:25 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/12 16:19:12 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,8 @@
 
 void	ft_format_flags(char **str, t_format *format, int i)
 {
-	format->flags[i] = **str;
+	if (!ft_strchr(format->flags, **str))
+		format->flags[i] = **str;
 	*str = *str + 1;
 }
 
@@ -26,13 +27,17 @@ void	ft_format_length(char **str, t_format *format)
 	{
 		*str = *str + 1;
 		if (**str == 'l')
-		format->length = 'L';
+			format->length = 'L';
+		else
+			*str = *str - 1;
 	}
 	if (**str == 'h')
 	{
 		*str = *str + 1;
 		if (**str == 'h')
-		format->length = 'H';
+			format->length = 'H';
+		else
+			*str = *str - 1;
 	}
 	*str = *str + 1;
 }
