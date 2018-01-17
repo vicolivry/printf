@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/09 12:13:47 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 12:24:03 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/17 17:26:42 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,7 +56,7 @@ int	ft_printf(const char *format, ...)
 		if (*str == '%')
 		{
 			param = ft_parse(&str);
-			if (param.type != '%')
+			if (param.t != '%')
 				varg = va_arg(va, intmax_t);
 		//	ft_display_param(param);
 			ft_modify(param, varg, &ret);

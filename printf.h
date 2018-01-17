@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 13:42:25 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/15 18:50:07 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/17 17:33:08 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,20 +23,19 @@
 # define WIDTH "123456789"
 # define PRECIS '.'
 # define LENGTH "hlzj"
-# define TYPE "sSpdDioOuUxXcC%"
+# define TYPE "bsSpdDioOuUxXcC%"
 
 typedef struct		s_format
 {
-	char			flags[6];
-	int				width;
-	int				precis;
-	char			length;
-	char			type;
+	char			f[6];
+	int				w;
+	int				p;
+	char			l;
+	char			t;
 	int				neg;
 }					t_format;
 
 t_format			ft_parse(char **str);
-int					ft_search_chr(char c, char *define);
 void				ft_format_flags(char **str, t_format *format, int i);
 void				ft_format_width(char **str, t_format *format);
 void				ft_format_precis(char **str, t_format *format);
@@ -47,5 +46,6 @@ void				ft_modify(t_format fmt, intmax_t varg, int *ret);
 void				ft_type_di(t_format *fmt, intmax_t varg, int *ret);
 void				ft_type_c(t_format *fmt, intmax_t varg, int *ret);
 void				ft_type_s(t_format *fmt, intmax_t varg, int *ret);
+void				ft_type_oxub(t_format *fmt, intmax_t varg, int *ret);
 
 #endif

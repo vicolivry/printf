@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 10:35:07 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 12:10:54 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/17 11:27:40 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,6 +16,7 @@
 
 # include <string.h>
 # include <wchar.h>
+# include <inttypes.h>
 
 typedef struct		s_list
 {

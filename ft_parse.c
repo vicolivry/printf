@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 17:24:14 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/12 15:05:37 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/17 18:34:42 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,11 +15,11 @@
 
 static void	ft_init_format(t_format *struc)
 {
-	ft_bzero(struc->flags, 6);
-	struc->width = 0;
-	struc->precis = 0;
-	struc->length = ' ';
-	struc->type = ' ';
+	ft_bzero(struc->f, 6);
+	struc->w = 0;
+	struc->p = 0;
+	struc->l = ' ';
+	struc->t = ' ';
 	struc->neg = 0;
 }
 
@@ -48,6 +48,12 @@ t_format	ft_parse(char **str)
 	*str = *str + 1;
 	while (ft_strchr(TYPE, **str) == NULL)
 		ft_fill_fmt(str, &fmt, &flag_cnt);
-	fmt.type = **str;
+	fmt.t = **str;
+	if (fmt.t == 'p')
+	{
+		fmt.t = 'x';
+	if (!ft_strchr(fmt.f, '#'))
+		fmt.f[flag_cnt] = '#';
+	}
 	return (fmt);
 }
