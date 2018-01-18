@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 17:24:14 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/17 18:34:42 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/18 11:01:34 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,9 +51,9 @@ t_format	ft_parse(char **str)
 	fmt.t = **str;
 	if (fmt.t == 'p')
 	{
-		fmt.t = 'x';
-	if (!ft_strchr(fmt.f, '#'))
-		fmt.f[flag_cnt] = '#';
+		if (!ft_strchr(fmt.f, '#'))
+			fmt.f[flag_cnt] = '#';
+		fmt.l = 'l';
 	}
 	return (fmt);
 }

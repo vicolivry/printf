@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/12 16:21:34 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/17 17:13:38 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/18 13:38:49 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,7 @@ static void	ft_type_d_pos(t_format *fmt, intmax_t varg, int *ret)
 		while (fmt->w-- && fmt->w >= fmt->p)
 			*ret += ft_putchar(' ');
 		*ret += ft_strchr(fmt->f, '+') && !fmt->neg ? ft_putchar('+') : 0;
-		while (fmt->p-- && fmt->p > ft_nb_len(varg))
+		while (fmt->p-- && fmt->p >= ft_nb_len(varg))
 			*ret += ft_putchar('0');
 	}
 	*ret += fmt->neg ? ft_putchar('-') : 0;
@@ -94,6 +94,8 @@ void		ft_type_di(t_format *fmt, intmax_t varg, int *ret)
 		varg *= -1;
 		fmt->neg = 1;
 	}
+	fmt->p = !fmt->p && !ft_strchr(fmt->f, '-') && (ft_strchr(fmt->f, '0'))
+		? fmt->w : 0;
 	fmt->w -= ft_strchr(fmt->f, '+') && !fmt->neg ? 1 : 0;
 	if (!ft_strchr(fmt->f, '-'))
 		ft_type_d_pos(fmt, varg, ret);

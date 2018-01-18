@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/17 18:17:06 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/17 18:18:05 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/18 13:41:21 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,6 +33,7 @@ static void	ft_type_oxub_pos(t_format *fmt, char *str, int len, int *ret)
 		while (fmt->p-- && fmt->p >= len)
 			*ret += ft_putchar('0');
 	}
+	*ret += fmt->t == 'p' ? ft_putstr("0x10") : 0;
 	*ret += fmt->t == 'X' && ft_strchr(fmt->f, '#') ? ft_putstr("0X") : 0;
 	*ret += fmt->t == 'x' && ft_strchr(fmt->f, '#') ? ft_putstr("0x") : 0;
 	*ret += (fmt->t == 'o' || fmt->t == 'O') &&
@@ -52,6 +53,7 @@ static void	ft_type_oxub_neg(t_format *fmt, char *str, int len, int *ret)
 			fmt->w--;
 		}
 	}
+	*ret += fmt->t == 'p' ? ft_putstr("0x10") : 0;
 	*ret += fmt->t == 'X' && ft_strchr(fmt->f, '#') ? ft_putstr("0X") : 0;
 	*ret += fmt->t == 'x' && ft_strchr(fmt->f, '#') ? ft_putstr("0x") : 0;
 	*ret += (fmt->t == 'o' || fmt->t == 'O') &&
@@ -91,12 +93,16 @@ void		ft_type_oxub(t_format *fmt, intmax_t varg, int *ret)
 	ft_type_oxub_l(fmt, &varg);
 	str = ft_uitoa_base(varg, "01234567");
 	str = fmt->t == 'u' ? ft_uitoa_base(varg, "0123456789") : str;
-	str = fmt->t == 'x' ? ft_uitoa_base(varg, "0123456789abcdef") : str;
+	str = fmt->t == 'x' || fmt->t == 'p'
+		? ft_uitoa_base(varg, "0123456789abcdef") : str;
 	str = fmt->t == 'X' ? ft_uitoa_base(varg, "0123456789ABCDEF") : str;
 	str = fmt->t == 'b' ? ft_uitoa_base(varg, "01") : str;
 	len = ft_strlen(str);
+	len += fmt->t == 'p' ? 4 : 0;
 	len += ft_strchr(fmt->f, '#') && (fmt->t == 'x' || fmt->t == 'X') ? 2 : 0;
 	len += ft_strchr(fmt->f, '#') && (fmt->t == 'o' || fmt->t == 'O') ? 1 : 0;
+	fmt->p = !fmt->p && !ft_strchr(fmt->f, '-') && (ft_strchr(fmt->f, '0'))
+		? fmt->w : 0;
 	if (!ft_strchr(fmt->f, '-'))
 		ft_type_oxub_pos(fmt, str, len, ret);
 	else

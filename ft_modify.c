@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/09 17:57:07 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/17 17:32:51 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/18 11:19:57 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,6 @@ void	ft_modify(t_format fmt, intmax_t varg, int *ret)
 	else if (fmt.t == 's' || fmt.t == 'S')
 		ft_type_s(&fmt, varg, ret);
 	else if (fmt.t == 'o' || fmt.t == 'O' || fmt.t == 'x'
-			|| fmt.t == 'X' || fmt.t == 'u' || fmt.t == 'b')
+			|| fmt.t == 'X' || fmt.t == 'u' || fmt.t == 'b' || fmt.t == 'p')
 		ft_type_oxub(&fmt, varg, ret);
 }
