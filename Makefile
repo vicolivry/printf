@@ -5,38 +5,39 @@
 #                                                  +:+:+   +:    +:  +:+:+     #
 #    By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
-#    Created: 2018/01/09 12:06:53 by volivry      #+#   ##    ##    #+#        #
-#    Updated: 2018/01/09 12:13:32 by volivry     ###    #+. /#+    ###.fr      #
+#    Created: 2018/01/22 17:16:45 by volivry      #+#   ##    ##    #+#        #
+#    Updated: 2018/01/23 13:32:55 by volivry     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
+.PHONY: all clean fclean re
+
 CC = gcc
-
-CFLAGS = -Wall -Werror -Wextra
-
-NAME = ft_printf
-
-OBJS = ft_format.o ft_parse.o ft_printf.o
+NAME = libftprintf.a
+SRC = ft_printf.c ft_parse.c ft_format.c ft_modify.c type_c.c type_di.c\
+	  type_oub.c type_s.c type_x.c
+OBJECTS = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	make -C ./libft
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libft/ -lft
+%.o: %.c
+	@$(CC) -I. -o $@ -c $<
 
-./%.o: ./%.c
-	$(CC) $(CFLAGS) -o $@ -c $<
+$(NAME): $(OBJECTS)
+	@echo "Generation de libftprintf.a"
+	@make -C ./libft/
+	@cp ./libft/libft.a ./$(NAME)
+	@ar rcs $(NAME) $(OBJECTS)
 
 clean:
-	rm -rf $(OBJS)
-	make -C ./libft clean
+	@echo "CLEANING"
+	@make clean -C ./libft/
+	@rm -f $(OBJECTS)
 
 fclean: clean
-	make -C ./libft fclean
-	rm -rf $(NAME)
-	rm -rf $(OBJS)
+	@echo "SUPER CLEANING"
+	@make fclean -C ./libft/
+	@rm -f $(NAME)
 
 re: fclean all
-
-.PHONY: all clean fclean re

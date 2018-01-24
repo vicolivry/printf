@@ -6,17 +6,25 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/05 15:32:41 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/17 17:07:46 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/24 19:24:24 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	ft_format_flags(char **str, t_format *format, int i)
+void	ft_format_flags(char **str, t_format *format)
 {
-	if (!ft_strchr(format->f, **str))
-		format->f[i] = **str;
+	if (**str == '+')
+		format->plus = 1;
+	if (**str == '-')
+		format->minus = 1;
+	if (**str == '#')
+		format->hash = 1;
+	if (**str == ' ')
+		format->space = 1;
+	if (**str == '0')
+		format->zero = 1;
 	*str = *str + 1;
 }
 
@@ -56,6 +64,7 @@ void	ft_format_precis(char **str, t_format *format)
 		*str = *str + 1;
 	}
 	format->p = precis;
+	format->p_val = 1;
 }
 
 void	ft_format_width(char **str, t_format *format)
@@ -71,4 +80,5 @@ void	ft_format_width(char **str, t_format *format)
 		*str = *str + 1;
 	}
 	format->w = width;
+	format->w_val = 1;
 }

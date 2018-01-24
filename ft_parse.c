@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 17:24:14 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/18 11:01:34 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/24 18:29:10 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,9 +15,15 @@
 
 static void	ft_init_format(t_format *struc)
 {
-	ft_bzero(struc->f, 6);
+	struc->plus = 0;
+	struc->minus = 0;
+	struc->hash = 0;
+	struc->space = 0;
+	struc->zero = 0;
 	struc->w = 0;
 	struc->p = 0;
+	struc->p_val = 0;
+	struc->w_val = 0;
 	struc->l = ' ';
 	struc->t = ' ';
 	struc->neg = 0;
@@ -26,10 +32,7 @@ static void	ft_init_format(t_format *struc)
 static void	ft_fill_fmt(char **str, t_format *fmt, int *flag_cnt)
 {
 	if (ft_strchr(FLAGS, **str) != NULL)
-	{
-		ft_format_flags(str, fmt, *flag_cnt);
-		*flag_cnt = *flag_cnt + 1;
-	}
+		ft_format_flags(str, fmt);
 	else if (ft_strchr(WIDTH, **str) != NULL)
 		ft_format_width(str, fmt);
 	else if (**str == '.')
@@ -51,9 +54,9 @@ t_format	ft_parse(char **str)
 	fmt.t = **str;
 	if (fmt.t == 'p')
 	{
-		if (!ft_strchr(fmt.f, '#'))
-			fmt.f[flag_cnt] = '#';
+		fmt.hash = 1;
 		fmt.l = 'l';
+		fmt.t = 'x';
 	}
 	return (fmt);
 }
