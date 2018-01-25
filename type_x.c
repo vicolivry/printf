@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/23 12:13:10 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 19:26:23 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/25 15:24:15 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,15 +82,16 @@ static void	ft_type_x_l(t_format *fmt, intmax_t *varg)
 	else if (fmt->l == 'z')
 		*varg = (size_t)*varg;
 	else if (fmt->l == 'j')
-		*varg = (intmax_t)*varg;
+		*varg = (uintmax_t)*varg;
 }
 
-void		ft_type_x(t_format *fmt, intmax_t varg, int *ret)
+void		ft_type_x(t_format *fmt, va_list *va, int *ret)
 {
-	char	*str;
-	int		len;
+	char		*str;
+	int			len;
+	uintmax_t	varg;
 
-	ft_type_x_l(fmt, &varg);
+	varg = u_size(va, fmt);
 	str = fmt->t == 'x' ? ft_uitoa_base(varg, "0123456789abcdef")
 		: ft_uitoa_base(varg, "0123456789ABCDEF");
 	len = ft_strlen(str);

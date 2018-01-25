@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 17:24:14 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 18:29:10 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/25 15:40:47 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,7 @@ t_format	ft_parse(char **str)
 	flag_cnt = 0;
 	ft_init_format(&fmt);
 	*str = *str + 1;
-	while (ft_strchr(TYPE, **str) == NULL)
+	while (!ft_strchr(TYPE, **str))
 		ft_fill_fmt(str, &fmt, &flag_cnt);
 	fmt.t = **str;
 	if (fmt.t == 'p')

@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/16 14:06:09 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 19:22:44 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/25 16:13:10 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,7 @@ static void	ft_type_s_wp_pos(t_format *fmt, char *str, size_t len, int *ret)
 		*ret += ft_putstr(str);
 	else if (fmt->w && fmt->p_val)
 	{
+		*ret += !ft_strcmp(str, "") ? ft_putchar(' ') : 0;
 		while (fmt->w-- > len && fmt->w)
 			*ret += fmt->zero ? ft_putchar('0') : ft_putchar(' ');
 		while (len--)
@@ -55,20 +56,22 @@ static void	ft_type_s_wp_neg(t_format *fmt, char *str, size_t len, int *ret)
 	}
 	else if (fmt->w && !fmt->p_val)
 	{
+		*ret += !ft_strcmp(str, "") ? ft_putchar(' ') : 0;
 		*ret += ft_putstr(str);
 		while (fmt->w-- > len && fmt->w)
 			*ret += ft_putchar(' ');
 	}
 }
 
-void		ft_type_s(t_format *fmt, intmax_t varg, int *ret)
+void		ft_type_s(t_format *fmt, va_list *va, int *ret)
 {
-	char	*str;
-	size_t	len;
+	char		*str;
+	size_t		len;
+	char	varg;
 
-	str = (char*)varg;
-	if (varg == (long)NULL)
-		str = ("null");
+	*str = va_arg(*va, int);
+	if (str == (NULL))
+		str = ("(null)");
 	len = fmt->p_val && fmt->p <= ft_strlen(str) ? fmt->p : ft_strlen(str);
 	len = fmt->p == 0 && fmt->p_val ? 0 : len;
 	if (!fmt->minus)

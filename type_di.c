@@ -6,14 +6,14 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/12 16:21:34 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 18:36:31 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/25 15:05:57 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void	ft_type_d_pos(t_format	 *fmt, long varg, int *ret, int len)
+static void	ft_type_d_pos(t_format	 *fmt, intmax_t varg, int *ret, int len)
 {
 	*ret += !fmt->plus && fmt->space && !fmt->neg && fmt->w <= len
 		? ft_putchar(' ') : 0;
@@ -53,7 +53,7 @@ static void	ft_type_d_pos(t_format	 *fmt, long varg, int *ret, int len)
 	*ret += !varg && fmt->plus ? ft_putchar('0') : 0;
 }
 
-static void	ft_type_d_neg(t_format *fmt, long varg, int *ret, int len)
+static void	ft_type_d_neg(t_format *fmt, intmax_t varg, int *ret, int len)
 {
 	*ret += !fmt->plus && fmt->space && !fmt->neg ? ft_putchar(' ') : 0;
 	fmt->w -= !fmt->plus && fmt->space && !fmt->neg ? 1 : 0;
@@ -92,20 +92,21 @@ static void	ft_type_d_l(t_format *fmt, intmax_t *varg)
 		*varg = (intmax_t)*varg;
 }
 
-void	ft_type_di(t_format *fmt, intmax_t varg, int *ret)
+void	ft_type_di(t_format *fmt, va_list *va, int *ret)
 {
-	int	len;
-	int	i;
+	int			len;
+	int			i;
+	intmax_t	varg;
 
 	i = 0;
-	varg = (int)varg;
-	len = ft_strlen(ft_itoa(varg));
 	fmt->l = fmt->t == 'D' ? 'l' : fmt->l;
-	ft_type_d_l(fmt, &varg);
+	varg = d_size(va, fmt);
+	len = ft_strlen(ft_itoa(varg));
 	if (varg < 0)
 	{
 		varg *= -1;
 		fmt->neg = 1;
+		fmt->p += fmt->p_val ? 1 : 0;
 	}
 	if (fmt->zero && fmt->p_val && fmt->w_val)
 		fmt->zero = 0;

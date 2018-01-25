@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/23 12:23:12 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 18:52:48 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/25 15:14:57 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,16 +71,17 @@ static void	ft_type_oub_l(t_format *fmt, intmax_t *varg)
 	else if (fmt->l == 'z')
 		*varg = (size_t)*varg;
 	else if (fmt->l == 'j')
-		*varg = (intmax_t)*varg;
+		*varg = (uintmax_t)*varg;
 }
 
-void		ft_type_oub(t_format *fmt, intmax_t varg, int *ret)
+void		ft_type_oub(t_format *fmt, va_list *va, int *ret)
 {
 	char	*str;
-	int		len;
+	int			len;
+	uintmax_t	varg;
 
-	fmt->l = fmt->t == 'O' ? 'l' : fmt->l;
-	ft_type_oub_l(fmt, &varg);
+	fmt->l = fmt->t == 'O'  || fmt->t == 'U'? 'l' : fmt->l;
+	varg = u_size(va, fmt);
 	str = ft_uitoa_base(varg, "01234567");
 	str = fmt->t == 'u' ? ft_uitoa_base(varg, "0123456789") : str;
 	str = fmt->t == 'b' ? ft_uitoa_base(varg, "01") : str;
