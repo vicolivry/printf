@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 13:42:25 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 15:05:27 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/29 19:26:04 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,7 @@
 # include "./libft/libft.h"
 # include <stdarg.h>
 # include <inttypes.h>
+# include <limits.h>
 
 # define FORMAT "-+ 0#123456789.hlLzjt"
 # define FLAGS "-+ 0#"
@@ -56,5 +57,6 @@ void				ft_type_c(t_format *fmt, va_list *va, int *ret);
 void				ft_type_s(t_format *fmt, va_list *va, int *ret);
 void				ft_type_oub(t_format *fmt, va_list *va, int *ret);
 void				ft_type_x(t_format *fmt, va_list *va, int *ret);
+void				ft_type_p(t_format *fmt, va_list *va, int *ret);
 
 #endif

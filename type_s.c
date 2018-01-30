@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/16 14:06:09 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 16:13:10 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/29 19:15:52 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,9 +67,12 @@ void		ft_type_s(t_format *fmt, va_list *va, int *ret)
 {
 	char		*str;
 	size_t		len;
-	char	varg;
+	uintmax_t	varg;
 
-	*str = va_arg(*va, int);
+	if (fmt->t == 'S' || fmt->l == 'l')
+		str = va_arg(*va, wchar_t*);
+	else
+		str = va_arg(*va, char*);
 	if (str == (NULL))
 		str = ("(null)");
 	len = fmt->p_val && fmt->p <= ft_strlen(str) ? fmt->p : ft_strlen(str);

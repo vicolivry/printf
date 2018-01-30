@@ -6,16 +6,16 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/08 15:51:10 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/08 16:03:34 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/22 18:41:35 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_power(int nb, int pwr)
+int	ft_power(int nb, int pwr)
 {
-	int tmp;
+	int	tmp;
 
 	tmp = nb;
 	if (pwr == 0)

@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/10 19:18:47 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/17 11:27:22 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/29 14:22:23 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,61 +14,23 @@
 #include "libft.h"
 #include <stdlib.h>
 
-static int	ft_check_base(char *str)
+char	*ft_uitoa_base(uintmax_t n, int base)
 {
-	int	i;
-	int	j;
+	static char	list[] = "0123456789abcdef";
+	uintmax_t	temp;
+	int		digits;
+	char		*output;
 
-	i = 0;
-	if (ft_strlen(str) < 2)
-		return (0);
-	while (str[i])
+	temp =  n;
+	digits = 1;
+	while (temp /= base)
+		digits++;
+	output = ft_strnew(digits);
+	temp = n;
+	while (digits--)
 	{
-		if (str[i] == '-' || str[i] == '+')
-			return (0);
-		j = i + 1;
-		while (str[j])
-		{
-			if (str[j] == str[i])
-				return (0);
-			j++;
-		}
-		i++;
+		output[digits] = list[temp % base];
+		temp /= base;
 	}
-	return (1);
-}
-static int	ft_nb_len_base(int nb, int base)
-{
-	int	cnt;
-
-	cnt = 1;
-	while (nb >= base)
-	{
-		cnt++;
-		nb /= base;
-	}
-	return (cnt);
-}
-
-char		*ft_uitoa_base(unsigned int nb, char *base)
-{
-	int		b;
-	char	*str;
-	int		len;
-
-	if (!ft_check_base(base))
-		return (NULL);
-	b = ft_strlen(base);
-	len = ft_nb_len_base(nb, b);
-	if ((str = malloc(len + 1)) == NULL)
-		return (NULL);
-	str[len] = '\0';
-	len--;
-	while (nb > 0)
-	{
-		str[len] = (base[nb % b]);
-		nb /= b;
-		len--;
-	}
-	return (str);
+	return (output);
 }

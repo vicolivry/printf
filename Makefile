@@ -6,7 +6,7 @@
 #    By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/01/22 17:16:45 by volivry      #+#   ##    ##    #+#        #
-#    Updated: 2018/01/25 15:05:44 by volivry     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/01/29 16:06:19 by volivry     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -16,7 +16,7 @@
 CC = gcc
 NAME = libftprintf.a
 SRC = ft_printf.c ft_parse.c ft_format.c ft_modify.c type_c.c type_di.c\
-	  type_oub.c type_s.c type_x.c sized.c
+	  type_oub.c type_s.c type_x.c sized.c type_p.c
 OBJECTS = $(SRC:.c=.o)
 
 all: $(NAME)

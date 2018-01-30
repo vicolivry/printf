@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/10 18:31:13 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/10 18:54:43 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/22 18:42:02 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-static int	ft_check_base(char* base)
+static int		ft_check_base(char *base)
 {
 	int	i;
 	int	j;
@@ -38,7 +38,7 @@ static int	ft_check_base(char* base)
 	return (1);
 }
 
-static int	ft_check_str(char *str, char *base)
+static int		ft_check_str(char *str, char *base)
 {
 	while (*str)
 	{
@@ -49,7 +49,7 @@ static int	ft_check_str(char *str, char *base)
 	return (1);
 }
 
-static int	ft_value(char *base, char c)
+static int		ft_value(char *base, char c)
 {
 	int	i;
 

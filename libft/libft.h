@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 10:35:07 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/17 11:27:40 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/29 14:20:17 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,11 +56,11 @@ int					ft_toupper(int c);
 int					ft_tolower(int c);
 
 unsigned int		ft_atoui_base(char *str, char *base);
-char				*ft_uitoa_base(unsigned int nb, char *base);
+char				*ft_uitoa_base(uintmax_t n, int base);
 long				ft_atol_base(char *str, char *base);
 int					ft_nb_len(int nb);
 int					ft_power(int nb, int pwr);
-char				*ft_itoa_base(int nb, char *base_str);
+char				*ft_itoa_base(intmax_t n, int base);
 int					ft_atoi_base(char *str, char *base);
 int					ft_islower(int c);
 int					ft_isupper(int c);
@@ -91,7 +91,7 @@ int					ft_putstr(char *s);
 int					ft_putendl(char const *s);
 int					ft_putnbr(int n);
 int					ft_putchar_fd(char c, int fd);
-int					ft_putstr_fd(char *s, int fd);
+int					ft_putstr_fd(const char *s, int fd);
 int					ft_putendl_fd(char const *s, int fd);
 int					ft_putnbr_fd(int n, int fd);
 

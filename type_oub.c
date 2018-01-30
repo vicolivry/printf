@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/23 12:23:12 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 15:14:57 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/29 15:09:24 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,8 @@ static void	ft_type_oub_pos(t_format *fmt, char *str, int len, int *ret)
 	}
 	*ret += (fmt->t == 'o' || fmt->t == 'O') &&
 		fmt->hash ? ft_putchar('0') : 0;
-	*ret += ft_putstr(str);
+	*ret += !ft_strcmp(str, "0") && fmt->p == 0 && fmt->p_val
+		&& (fmt->t == 'o' || fmt->t == 'O') ? 0 : ft_putstr(str);
 }
 
 static void	ft_type_oub_neg(t_format *fmt, char *str, int len, int *ret)
@@ -50,41 +51,24 @@ static void	ft_type_oub_neg(t_format *fmt, char *str, int len, int *ret)
 	}
 	*ret += (fmt->t == 'o' || fmt->t == 'O') &&
 		fmt->hash ? ft_putchar('0') : 0;
-	*ret += ft_putstr(str);
+	*ret += !ft_strcmp(str, "0") && fmt->p == 0 && fmt->p_val
+		&& (fmt->t == 'o' || fmt->t == 'O') ? 0 : ft_putstr(str);
 	if (fmt->w_val)
 		while (fmt->w-- > len && fmt->w)
 			*ret += ft_putchar(' ');
 }
 
-static void	ft_type_oub_l(t_format *fmt, intmax_t *varg)
-{
-	if (fmt->l == 'H')
-		*varg = (unsigned char)*varg;
-	else if (fmt->l == 'h')
-		*varg = (unsigned short)*varg;
-	else if (fmt->l == ' ')
-		*varg = (unsigned int)*varg;
-	else if (fmt->l == 'l')
-		*varg = (unsigned long)*varg;
-	else if (fmt->l == 'L')
-		*varg = (unsigned long long)*varg;
-	else if (fmt->l == 'z')
-		*varg = (size_t)*varg;
-	else if (fmt->l == 'j')
-		*varg = (uintmax_t)*varg;
-}
-
 void		ft_type_oub(t_format *fmt, va_list *va, int *ret)
 {
-	char	*str;
+	char		*str;
 	int			len;
 	uintmax_t	varg;
 
-	fmt->l = fmt->t == 'O'  || fmt->t == 'U'? 'l' : fmt->l;
+	fmt->l = fmt->t == 'O' || fmt->t == 'U' ? 'l' : fmt->l;
 	varg = u_size(va, fmt);
-	str = ft_uitoa_base(varg, "01234567");
-	str = fmt->t == 'u' ? ft_uitoa_base(varg, "0123456789") : str;
-	str = fmt->t == 'b' ? ft_uitoa_base(varg, "01") : str;
+	str = ft_uitoa_base(varg, 8);
+	str = fmt->t == 'u' || fmt->t == 'U' ? ft_uitoa_base(varg, 10) : str;
+	str = fmt->t == 'b' ? ft_uitoa_base(varg, 2) : str;
 	len = ft_strlen(str);
 	len += fmt->hash && (fmt->t == 'o' || fmt->t == 'O') ? 1 : 0;
 	fmt->w += varg == 0 && fmt->p_val ? 1 : 0;

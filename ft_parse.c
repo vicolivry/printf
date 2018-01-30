@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 17:24:14 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 15:40:47 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/30 18:19:42 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,14 +49,11 @@ t_format	ft_parse(char **str)
 	flag_cnt = 0;
 	ft_init_format(&fmt);
 	*str = *str + 1;
-	while (!ft_strchr(TYPE, **str))
+	while (ft_strchr(FORMAT, **str))
 		ft_fill_fmt(str, &fmt, &flag_cnt);
-	fmt.t = **str;
-	if (fmt.t == 'p')
-	{
-		fmt.hash = 1;
-		fmt.l = 'l';
-		fmt.t = 'x';
-	}
+	if (ft_strchr(TYPE, **str))
+		fmt.t = **str;
+	else
+		*str = *str - 1;
 	return (fmt);
 }

@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/25 14:52:12 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 16:08:22 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/29 19:17:01 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ intmax_t	d_size(va_list *ap, t_format *fmt)
 {
 	intmax_t nbr;
 
-	nbr =	0;
+	nbr = 0;
 	if (fmt->l == 'H')
 		nbr = (char)va_arg(*ap, int);
 	else if (fmt->l == 'h')

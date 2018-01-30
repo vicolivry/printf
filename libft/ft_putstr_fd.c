@@ -6,14 +6,14 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 12:10:35 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 12:11:06 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/23 12:27:23 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(const char *s, int fd)
 {
 	int		ret;
 
