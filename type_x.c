@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/23 12:13:10 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 16:43:24 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/31 10:44:54 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -97,4 +97,5 @@ void		ft_type_x(t_format *fmt, va_list *va, int *ret)
 		ft_type_x_pos(fmt, str, len, ret);
 	else
 		ft_type_x_neg(fmt, str, len, ret);
+	free(str);
 }

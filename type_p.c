@@ -6,17 +6,27 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/29 15:57:55 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 17:56:04 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/31 13:52:16 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void	print_x(int *ret, t_format *fmt, char *str)
+static void	follow_p_pos(t_format *fmt, char *str, int len, int *ret)
 {
+	if (fmt->w_val && fmt->p_val)
+	{
+		while (fmt->w-- && fmt->w >= fmt->p && fmt->w >= len)
+			*ret += ft_putchar(' ');
 		*ret += ft_putstr("0x");
-	fmt->t = ' ';
+		while (fmt->p-- && fmt->p >= len)
+			*ret += ft_putchar('0');
+	}
+	else
+		*ret += ft_putstr("0x");
+	*ret += !ft_strcmp(str, "0") && fmt->p <= 0 && fmt->p_val
+		? 0 : ft_putstr(str);
 }
 
 static void	ft_type_p_pos(t_format *fmt, char *str, int len, int *ret)
@@ -25,26 +35,21 @@ static void	ft_type_p_pos(t_format *fmt, char *str, int len, int *ret)
 	{
 		while (!fmt->zero && fmt->w-- > len && fmt->w)
 			*ret += ft_putchar(' ');
-		print_x(ret, fmt, str);
+		*ret += ft_putstr("0x");
 		while (fmt->w-- > len && fmt->w && fmt->zero)
 			*ret += ft_putchar('0');
 	}
 	else if (!fmt->w_val && fmt->p_val)
 	{
-		print_x(ret, fmt, str);
+		*ret += ft_putstr("0x");
 		while (fmt->p-- > len && fmt->p)
 			*ret += ft_putchar('0');
 	}
-	else if (fmt->w_val && fmt->p_val)
-	{
-		while (fmt->w-- && fmt->w >= fmt->p && fmt->w >= len)
-			*ret += ft_putchar(' ');
-		print_x(ret, fmt, str);
-		while (fmt->p-- && fmt->p >= len)
-			*ret += ft_putchar('0');
-	}
 	else
-		print_x(ret, fmt, str);
+	{
+		follow_p_pos(fmt, str, len, ret);
+		return ;
+	}
 	*ret += !ft_strcmp(str, "0") && fmt->p <= 0 && fmt->p_val
 		? 0 : ft_putstr(str);
 }
@@ -61,7 +66,7 @@ static void	ft_type_p_neg(t_format *fmt, char *str, int len, int *ret)
 			fmt->w--;
 		}
 	}
-	print_x(ret, fmt, str);
+	*ret += ft_putstr("0x");
 	*ret += !ft_strcmp(str, "0") && fmt->p <= 0 && fmt->p_val
 		? 0 : ft_putstr(str);
 	if (fmt->w)
@@ -90,9 +95,10 @@ void		ft_type_p(t_format *fmt, va_list *va, int *ret)
 	len += varg != 0 && fmt->p <= 0 ? 2 : 0;
 	len = !ft_strcmp(str, "0") ? 0 : len;
 	fmt->p += !ft_strcmp(str, "0") && fmt->p > 0 ? 1 : 0;
-	fmt->w -= fmt->p <= fmt->w  && fmt->p_val ? 2 : 0;
+	fmt->w -= (fmt->p <= fmt->w && fmt->p_val) || !varg ? 2 : 0;
 	if (!fmt->minus)
 		ft_type_p_pos(fmt, str, len, ret);
 	else
 		ft_type_p_neg(fmt, str, len, ret);
+	free(str);
 }

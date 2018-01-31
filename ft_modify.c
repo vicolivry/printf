@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/09 17:57:07 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 18:21:10 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/31 15:45:12 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,8 +19,10 @@ void	ft_modify(t_format fmt, va_list *va, int *ret)
 		ft_type_di(&fmt, va, ret);
 	else if (fmt.t == 'c' || fmt.t == 'C' || fmt.t == '%')
 		ft_type_c(&fmt, va, ret);
-	else if (fmt.t == 's' || fmt.t == 'S')
+	else if (fmt.t == 's')
 		ft_type_s(&fmt, va, ret);
+	else if (fmt.t == 'S')
+		ft_type_ws(&fmt, va, ret);
 	else if (fmt.t == 'o' || fmt.t == 'O' || fmt.t == 'u' || fmt.t == 'U'
 			|| fmt.t == 'b')
 		ft_type_oub(&fmt, va, ret);
@@ -28,4 +30,5 @@ void	ft_modify(t_format fmt, va_list *va, int *ret)
 		ft_type_x(&fmt, va, ret);
 	else if (fmt.t == 'p')
 		ft_type_p(&fmt, va, ret);
+	ft_init_format(&fmt);
 }

@@ -6,14 +6,14 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 17:24:14 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 18:19:42 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/31 14:09:58 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void	ft_init_format(t_format *struc)
+void		ft_init_format(t_format *struc)
 {
 	struc->plus = 0;
 	struc->minus = 0;
@@ -27,9 +27,10 @@ static void	ft_init_format(t_format *struc)
 	struc->l = ' ';
 	struc->t = ' ';
 	struc->neg = 0;
+	struc->mod = ' ';
 }
 
-static void	ft_fill_fmt(char **str, t_format *fmt, int *flag_cnt)
+static void	ft_fill_fmt(const char **str, t_format *fmt, int *flag_cnt)
 {
 	if (ft_strchr(FLAGS, **str) != NULL)
 		ft_format_flags(str, fmt);
@@ -41,7 +42,7 @@ static void	ft_fill_fmt(char **str, t_format *fmt, int *flag_cnt)
 		ft_format_length(str, fmt);
 }
 
-t_format	ft_parse(char **str)
+t_format	ft_parse(const char **str)
 {
 	t_format	fmt;
 	int			flag_cnt;
@@ -54,6 +55,9 @@ t_format	ft_parse(char **str)
 	if (ft_strchr(TYPE, **str))
 		fmt.t = **str;
 	else
-		*str = *str - 1;
+	{
+		fmt.t = 'c';
+		fmt.mod = **str;
+	}
 	return (fmt);
 }

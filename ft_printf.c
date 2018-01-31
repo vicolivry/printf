@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/09 12:13:47 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 18:24:19 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/31 10:53:01 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,19 +59,17 @@ int	ft_printf(const char *format, ...)
 
 	ret = 0;
 	va_start(va, format);
-	if (!(str = ft_strdup((char*)format)))
-		return (0);
-	while (*str)
+	while (*format)
 	{
-		while (*str != '%' && *str)
-			ret += ft_putchar(*str++);
-		if (*str == '%')
+		while (*format != '%' && *format)
+			ret += ft_putchar(*format++);
+		if (*format == '%')
 		{
-			if (!ft_strcmp(str, "%"))
+			if (!ft_strcmp(format, "%"))
 				return (0);
-			param = ft_parse(&str);
+			param = ft_parse(&format);
 			ft_modify(param, &va, &ret);
-			str++;
+			format++;
 		}
 	}
 	va_end(va);

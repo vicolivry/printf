@@ -6,14 +6,14 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/05 15:32:41 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/24 19:24:24 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/31 10:55:40 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	ft_format_flags(char **str, t_format *format)
+void	ft_format_flags(const char **str, t_format *format)
 {
 	if (**str == '+')
 		format->plus = 1;
@@ -28,7 +28,7 @@ void	ft_format_flags(char **str, t_format *format)
 	*str = *str + 1;
 }
 
-void	ft_format_length(char **str, t_format *format)
+void	ft_format_length(const char **str, t_format *format)
 {
 	format->l = **str;
 	if (**str == 'l')
@@ -50,7 +50,7 @@ void	ft_format_length(char **str, t_format *format)
 	*str = *str + 1;
 }
 
-void	ft_format_precis(char **str, t_format *format)
+void	ft_format_precis(const char **str, t_format *format)
 {
 	int	precis;
 
@@ -67,7 +67,7 @@ void	ft_format_precis(char **str, t_format *format)
 	format->p_val = 1;
 }
 
-void	ft_format_width(char **str, t_format *format)
+void	ft_format_width(const char **str, t_format *format)
 {
 	int	width;
 

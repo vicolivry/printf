@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/12 16:21:34 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/29 19:22:04 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/31 15:55:47 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,8 +15,13 @@
 
 static void	ft_type_d_pos(t_format *fmt, intmax_t varg, int *ret, int len)
 {
-	*ret += !fmt->plus && fmt->space && !fmt->neg && fmt->w <= len
-		? ft_putchar(' ') : 0;
+	char	*str;
+
+	str = ft_itoa_base(varg, 10);
+	*ret += !fmt->plus && fmt->space && !fmt->neg && (fmt->w <= len
+	|| (!ft_strcmp(str, "0"))) ? ft_putchar(' ') : 0;
+	fmt->w -= !fmt->plus && fmt->space && !fmt->neg && !ft_strcmp(str, "0")
+		? 1 : 0;
 	if (fmt->w_val && !fmt->p_val)
 	{
 		while (!fmt->zero && fmt->w-- > len && fmt->w)
@@ -50,11 +55,15 @@ static void	ft_type_d_pos(t_format *fmt, intmax_t varg, int *ret, int len)
 		*ret += fmt->neg ? ft_putchar('-') : 0;
 	}
 	*ret += fmt->p < 0 && fmt->p_val && !varg ? 0 :
-		ft_putstr(ft_itoa_base(varg, 10));
+		ft_putstr(str);
+	free(str);
 }
 
 static void	ft_type_d_neg(t_format *fmt, intmax_t varg, int *ret, int len)
 {
+	char*	str;
+
+	str = ft_itoa_base(varg, 10);
 	*ret += !fmt->plus && fmt->space && !fmt->neg ? ft_putchar(' ') : 0;
 	fmt->w -= !fmt->plus && fmt->space && !fmt->neg ? 1 : 0;
 	*ret += fmt->plus && !fmt->neg ? ft_putchar('+') : 0;
@@ -68,20 +77,23 @@ static void	ft_type_d_neg(t_format *fmt, intmax_t varg, int *ret, int len)
 		}
 	}
 	*ret += fmt->neg ? ft_putchar('-') : 0;
-	*ret += ft_putstr(ft_itoa_base(varg, 10));
+	*ret += ft_putstr(str);
 	if (fmt->w_val)
 		while (fmt->w-- > len && fmt->w)
 			*ret += ft_putchar(' ');
+	free(str);
 }
 
 void		ft_type_di(t_format *fmt, va_list *va, int *ret)
 {
 	int			len;
 	long long	varg;
+	char		*tmp;
 
-	varg = d_size(va, fmt);
 	fmt->l = fmt->t == 'D' ? 'l' : fmt->l;
-	len = ft_strlen(ft_itoa_base(varg, 10));
+	varg = d_size(va, fmt);
+	tmp = ft_itoa_base(varg, 10);
+	len = ft_strlen(tmp);
 	if (varg == -9223372036854775808)
 	{
 		*ret += ft_putstr("-9223372036854775808");
@@ -95,9 +107,12 @@ void		ft_type_di(t_format *fmt, va_list *va, int *ret)
 	}
 	if (fmt->zero && fmt->p_val && fmt->w_val)
 		fmt->zero = 0;
+	fmt->p = varg && fmt->w_val && fmt->p_val && fmt->p < fmt->w
+		&& fmt->p <= len ? len : fmt->p;
 	fmt->w -= fmt->w_val && fmt->plus && !fmt->neg ? 1 : 0;
 	if (!fmt->minus)
 		ft_type_d_pos(fmt, varg, ret, len);
 	else
 		ft_type_d_neg(fmt, varg, ret, len);
+	free(tmp);
 }

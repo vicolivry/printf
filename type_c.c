@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/15 13:21:29 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/25 15:39:59 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/31 15:20:50 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,9 +29,13 @@ void		ft_type_c(t_format *fmt, va_list *va, int *ret)
 
 	fmt->l = fmt->t == 'C' ? 'l' : fmt->l;
 	varg = fmt->t == '%' ? '%' : d_size(va, fmt);
+	varg = fmt->mod != ' ' ? fmt->mod : varg;
 	ft_width_unicode(fmt, varg);
-	*ret += fmt->minus ? ft_putwchar(varg) : 0;
+	*ret += fmt->minus && fmt->l == 'l' ? ft_putwchar(varg) : 0;
+	*ret += fmt->minus && fmt->l != 'l' ? ft_putchar(varg) : 0;
 	while (fmt->w-- > 1)
-		*ret += ft_putchar(' ');
-	*ret += !fmt->minus ? ft_putwchar(varg) : 0;
+		*ret += fmt->zero ? ft_putchar('0') : ft_putchar(' ');
+	*ret += !fmt->minus && fmt->l == 'l' ? ft_putwchar(varg) : 0;
+	*ret += !fmt->minus && fmt->l != 'l' ? ft_putchar(varg) : 0;
+
 }

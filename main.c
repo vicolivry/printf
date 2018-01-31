@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 19:33:56 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/30 18:45:57 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/31 15:55:19 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,11 +24,11 @@ int	main(void)
 
 	setlocale(LC_ALL, "");
 	ft_putendl("FT_PRINTF");
-	ret = ft_printf("%c", '\0');
+	ret = ft_printf("[%S]\n", L"Á±≥");
 	ft_printf("\nret: [%d]\n\n", ret - 3);
 	ft_putendl("----*****----\n");
 	ft_putendl("REAL PRINTF");
-	ret = printf("%D", LONG_MAX);
+	ret = printf("[%S]\n", L"Á±≥");
 	printf("\nret: [%d]\n", ret - 3);
 	return (0);
 }

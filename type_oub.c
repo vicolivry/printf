@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/23 12:23:12 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/29 15:09:24 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/01/31 14:46:04 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ static void	ft_type_oub_pos(t_format *fmt, char *str, int len, int *ret)
 	}
 	else if (fmt->w && fmt->p)
 	{
-		while (fmt->w-- && fmt->w >= len)
+		while (fmt->w-- && fmt->w >= len && fmt->w >= fmt->p)
 			*ret += ft_putchar(' ');
 		while (fmt->p-- && fmt->p >= len)
 			*ret += ft_putchar('0');
@@ -34,7 +34,7 @@ static void	ft_type_oub_pos(t_format *fmt, char *str, int len, int *ret)
 	*ret += (fmt->t == 'o' || fmt->t == 'O') &&
 		fmt->hash ? ft_putchar('0') : 0;
 	*ret += !ft_strcmp(str, "0") && fmt->p == 0 && fmt->p_val
-		&& (fmt->t == 'o' || fmt->t == 'O') ? 0 : ft_putstr(str);
+		? 0 : ft_putstr(str);
 }
 
 static void	ft_type_oub_neg(t_format *fmt, char *str, int len, int *ret)
@@ -66,7 +66,7 @@ void		ft_type_oub(t_format *fmt, va_list *va, int *ret)
 
 	fmt->l = fmt->t == 'O' || fmt->t == 'U' ? 'l' : fmt->l;
 	varg = u_size(va, fmt);
-	str = ft_uitoa_base(varg, 8);
+	str = fmt->t == 'o' || fmt->t == 'O' ? ft_uitoa_base(varg, 8) : 0;
 	str = fmt->t == 'u' || fmt->t == 'U' ? ft_uitoa_base(varg, 10) : str;
 	str = fmt->t == 'b' ? ft_uitoa_base(varg, 2) : str;
 	len = ft_strlen(str);
@@ -78,4 +78,5 @@ void		ft_type_oub(t_format *fmt, va_list *va, int *ret)
 		ft_type_oub_pos(fmt, str, len, ret);
 	else
 		ft_type_oub_neg(fmt, str, len, ret);
+	free(str);
 }
