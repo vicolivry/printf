@@ -6,32 +6,16 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/12 16:21:34 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/31 15:55:47 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/01 15:41:46 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void	ft_type_d_pos(t_format *fmt, intmax_t varg, int *ret, int len)
+static void	follow_d_pos(t_format *fmt, char *str, int *ret, int len)
 {
-	char	*str;
-
-	str = ft_itoa_base(varg, 10);
-	*ret += !fmt->plus && fmt->space && !fmt->neg && (fmt->w <= len
-	|| (!ft_strcmp(str, "0"))) ? ft_putchar(' ') : 0;
-	fmt->w -= !fmt->plus && fmt->space && !fmt->neg && !ft_strcmp(str, "0")
-		? 1 : 0;
-	if (fmt->w_val && !fmt->p_val)
-	{
-		while (!fmt->zero && fmt->w-- > len && fmt->w)
-			*ret += ft_putchar(' ');
-		*ret += fmt->plus && !fmt->neg ? ft_putchar('+') : 0;
-		*ret += fmt->neg ? ft_putchar('-') : 0;
-		while (fmt->zero && fmt->w-- > len && fmt->w)
-			*ret += ft_putchar('0');
-	}
-	else if (!fmt->w_val && fmt->p_val)
+	if (!fmt->w_val && fmt->p_val)
 	{
 		*ret += fmt->plus && !fmt->neg ? ft_putchar('+') : 0;
 		*ret += fmt->neg ? ft_putchar('-') : 0;
@@ -54,16 +38,36 @@ static void	ft_type_d_pos(t_format *fmt, intmax_t varg, int *ret, int len)
 		*ret += fmt->plus && !fmt->neg ? ft_putchar('+') : 0;
 		*ret += fmt->neg ? ft_putchar('-') : 0;
 	}
-	*ret += fmt->p < 0 && fmt->p_val && !varg ? 0 :
+	*ret += fmt->p < 0 && fmt->p_val && !ft_strcmp(str, "0") ? 0 :
 		ft_putstr(str);
-	free(str);
 }
 
-static void	ft_type_d_neg(t_format *fmt, intmax_t varg, int *ret, int len)
+static void	ft_type_d_pos(t_format *fmt, char *str, int *ret, int len)
 {
-	char*	str;
+	*ret += !fmt->plus && fmt->space && !fmt->neg && (fmt->w <= len
+			|| (!ft_strcmp(str, "0"))) ? ft_putchar(' ') : 0;
+	fmt->w -= !fmt->plus && fmt->space && !fmt->neg && !ft_strcmp(str, "0")
+		? 1 : 0;
+	if (fmt->w_val && !fmt->p_val)
+	{
+		while (!fmt->zero && fmt->w-- > len && fmt->w)
+			*ret += ft_putchar(' ');
+		*ret += fmt->plus && !fmt->neg ? ft_putchar('+') : 0;
+		*ret += fmt->neg ? ft_putchar('-') : 0;
+		while (fmt->zero && fmt->w-- > len && fmt->w)
+			*ret += ft_putchar('0');
+	}
+	else
+	{
+		follow_d_pos(fmt, str, ret, len);
+		return ;
+	}
+	*ret += fmt->p < 0 && fmt->p_val && !ft_strcmp(str, "0") ? 0 :
+		ft_putstr(str);
+}
 
-	str = ft_itoa_base(varg, 10);
+static void	ft_type_d_neg(t_format *fmt, char *str, int *ret, int len)
+{
 	*ret += !fmt->plus && fmt->space && !fmt->neg ? ft_putchar(' ') : 0;
 	fmt->w -= !fmt->plus && fmt->space && !fmt->neg ? 1 : 0;
 	*ret += fmt->plus && !fmt->neg ? ft_putchar('+') : 0;
@@ -81,38 +85,46 @@ static void	ft_type_d_neg(t_format *fmt, intmax_t varg, int *ret, int len)
 	if (fmt->w_val)
 		while (fmt->w-- > len && fmt->w)
 			*ret += ft_putchar(' ');
-	free(str);
+}
+
+static void	varg_mv(t_format *fmt, long long *varg, int *ret)
+{
+	if (*varg == -9223372036854775808)
+	{
+		*ret += ft_putstr("-9223372036854775808");
+		return ;
+	}
+	if (*varg < 0)
+	{
+		*varg *= -1;
+		fmt->neg = 1;
+		fmt->p += fmt->p_val ? 1 : 0;
+	}
 }
 
 void		ft_type_di(t_format *fmt, va_list *va, int *ret)
 {
 	int			len;
 	long long	varg;
-	char		*tmp;
+	char		*str;
 
 	fmt->l = fmt->t == 'D' ? 'l' : fmt->l;
 	varg = d_size(va, fmt);
-	tmp = ft_itoa_base(varg, 10);
-	len = ft_strlen(tmp);
+	str = ft_itoa_base(varg, 10);
+	len = ft_strlen(str);
+	free(str);
+	varg_mv(fmt, &varg, ret);
 	if (varg == -9223372036854775808)
-	{
-		*ret += ft_putstr("-9223372036854775808");
 		return ;
-	}
-	if (varg < 0)
-	{
-		varg *= -1;
-		fmt->neg = 1;
-		fmt->p += fmt->p_val ? 1 : 0;
-	}
+	str = ft_itoa_base(varg, 10);
 	if (fmt->zero && fmt->p_val && fmt->w_val)
 		fmt->zero = 0;
 	fmt->p = varg && fmt->w_val && fmt->p_val && fmt->p < fmt->w
 		&& fmt->p <= len ? len : fmt->p;
 	fmt->w -= fmt->w_val && fmt->plus && !fmt->neg ? 1 : 0;
 	if (!fmt->minus)
-		ft_type_d_pos(fmt, varg, ret, len);
+		ft_type_d_pos(fmt, str, ret, len);
 	else
-		ft_type_d_neg(fmt, varg, ret, len);
-	free(tmp);
+		ft_type_d_neg(fmt, str, ret, len);
+	free(str);
 }

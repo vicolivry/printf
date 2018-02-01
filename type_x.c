@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/23 12:13:10 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/31 10:44:54 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/01 14:57:35 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,6 +21,22 @@ static void	print_x(int *ret, t_format *fmt, char *str)
 		*ret += fmt->t == 'x' ? ft_putstr("0x") : 0;
 	}
 	fmt->t = ' ';
+}
+
+static void	follow_x_pos(t_format *fmt, char *str, int len, int *ret)
+{
+	if (fmt->w_val && fmt->p_val)
+	{
+		while (fmt->w-- && fmt->w >= fmt->p && fmt->w >= len)
+			*ret += ft_putchar(' ');
+		print_x(ret, fmt, str);
+		while (fmt->p-- && fmt->p >= len)
+			*ret += ft_putchar('0');
+	}
+	else
+		print_x(ret, fmt, str);
+	*ret += !ft_strcmp(str, "0") && fmt->p <= 0 && fmt->p_val
+		? 0 : ft_putstr(str);
 }
 
 static void	ft_type_x_pos(t_format *fmt, char *str, int len, int *ret)
@@ -39,16 +55,11 @@ static void	ft_type_x_pos(t_format *fmt, char *str, int len, int *ret)
 		while (fmt->p-- > len && fmt->p)
 			*ret += ft_putchar('0');
 	}
-	else if (fmt->w_val && fmt->p_val)
-	{
-		while (fmt->w-- && fmt->w >= fmt->p && fmt->w >= len)
-			*ret += ft_putchar(' ');
-		print_x(ret, fmt, str);
-		while (fmt->p-- && fmt->p >= len)
-			*ret += ft_putchar('0');
-	}
 	else
-		print_x(ret, fmt, str);
+	{
+		follow_x_pos(fmt, str, len, ret);
+		return ;
+	}
 	*ret += !ft_strcmp(str, "0") && fmt->p <= 0 && fmt->p_val
 		? 0 : ft_putstr(str);
 }
@@ -92,7 +103,7 @@ void		ft_type_x(t_format *fmt, va_list *va, int *ret)
 	len = ft_strlen(str);
 	len += fmt->hash && varg != 0 && fmt->p <= 0 ? 2 : 0;
 	len = !ft_strcmp(str, "0") ? 0 : len;
-	fmt->w -= fmt->hash && fmt->p <= fmt->w  && fmt->p_val ? 2 : 0;
+	fmt->w -= fmt->hash && fmt->p <= fmt->w && fmt->p_val ? 2 : 0;
 	if (!fmt->minus)
 		ft_type_x_pos(fmt, str, len, ret);
 	else

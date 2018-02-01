@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/15 13:21:29 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/31 15:20:50 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/01 14:53:11 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,5 +37,4 @@ void		ft_type_c(t_format *fmt, va_list *va, int *ret)
 		*ret += fmt->zero ? ft_putchar('0') : ft_putchar(' ');
 	*ret += !fmt->minus && fmt->l == 'l' ? ft_putwchar(varg) : 0;
 	*ret += !fmt->minus && fmt->l != 'l' ? ft_putchar(varg) : 0;
-
 }

@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_uitoa_base.c                                  .::    .:/ .      .::   */
+/*   wstrlen.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/10 19:18:47 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/01 14:51:35 by volivry     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/02/01 14:47:51 by volivry      #+#   ##    ##    #+#       */
+/*   Updated: 2018/02/01 14:50:37 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-char	*ft_uitoa_base(uintmax_t n, int base)
+int	wstrlen(wchar_t *str)
 {
-	static char	list[] = "0123456789abcdef";
-	uintmax_t	temp;
-	int			digits;
-	char		*output;
+	int	len;
+	int	i;
 
-	temp = n;
-	digits = 1;
-	while (temp /= base)
-		digits++;
-	output = ft_strnew(digits);
-	temp = n;
-	while (digits--)
+	i = 0;
+	len = 0;
+	while (str[i])
 	{
-		output[digits] = list[temp % base];
-		temp /= base;
+		len += wchar_len(str[i]);
+		i++;
 	}
-	return (output);
+	return (len);
 }

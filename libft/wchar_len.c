@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_uitoa_base.c                                  .::    .:/ .      .::   */
+/*   wchar_len.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/01/10 19:18:47 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/02/01 14:51:35 by volivry     ###    #+. /#+    ###.fr     */
+/*   Created: 2018/02/01 14:42:36 by volivry      #+#   ##    ##    #+#       */
+/*   Updated: 2018/02/01 14:50:59 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-char	*ft_uitoa_base(uintmax_t n, int base)
+int	wchar_len(wchar_t c)
 {
-	static char	list[] = "0123456789abcdef";
-	uintmax_t	temp;
-	int			digits;
-	char		*output;
+	int	len;
 
-	temp = n;
-	digits = 1;
-	while (temp /= base)
-		digits++;
-	output = ft_strnew(digits);
-	temp = n;
-	while (digits--)
-	{
-		output[digits] = list[temp % base];
-		temp /= base;
-	}
-	return (output);
+	len = 1;
+	if (c <= 0x7FF && c >= 0x7F)
+		len = 2;
+	else if (c <= 0xFFFF && c >= 0x7F)
+		len = 3;
+	else if (c <= 0x1FFFFF && c >= 0x7F)
+		len = 4;
+	return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 10:35:07 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/29 14:20:17 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/01 14:47:39 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,6 +67,8 @@ int					ft_isupper(int c);
 int					ft_iswhite(int c);
 char				*ft_strrev(char *s);
 int					ft_wordcount(const char *str, char c);
+int					wchar_len(wchar_t c);
+int					wstrlen(wchar_t *str);
 
 void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
