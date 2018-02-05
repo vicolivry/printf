@@ -6,7 +6,7 @@
 /*   By: volivry <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/03 13:42:25 by volivry      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/31 15:46:38 by volivry     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/02/05 19:07:19 by volivry     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,5 +62,6 @@ void				ft_type_x(t_format *fmt, va_list *va, int *ret);
 void				ft_type_p(t_format *fmt, va_list *va, int *ret);
 void				ft_type_ws(t_format *fmt, va_list *va, int *ret);
 void				ft_init_format(t_format *struc);
+int					lenfinder(t_format *fmt, wchar_t *str);
 
 #endif
